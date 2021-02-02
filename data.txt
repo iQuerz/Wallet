@@ -1,0 +1,9 @@
+%Obama's SMP
+-Mladen
+300.000000 2 2 2020
+-srv
+-710.980000 2 2 2020
+%Scholarship
+-stipendija
+15000.000000 2 2 2020
+*
