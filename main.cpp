@@ -10,14 +10,19 @@ int main(){
     if(!manager.load()){
         std::cout << "'data.txt' is empty or corrupt. please check." << std::endl;
     }
-    std::string s;
-    std::cout << "Wallet>";
-    getline(std::cin,s);
-    while(s != "exit"){
-        manager.command(s);
+    try{
+        std::string s;
         std::cout << "Wallet>";
-        getline(std::cin, s);
+        getline(std::cin,s);
+        while(s != "exit"){
+            manager.command(s);
+            std::cout << "Wallet>";
+            getline(std::cin, s);
+        }
+        manager.save();
     }
-    manager.save();
+    catch(...){
+        std::cout << "Fatal error. Please contact the developer.";
+    }
     return 0;
 }

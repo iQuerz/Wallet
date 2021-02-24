@@ -43,6 +43,8 @@ public:
         :_name(n),_value(v),_day(d),_month(m),_year(y){}
     std::string date(){ //returns string for displaying the payment date
         std::string ret = "";
+        if(_day<10)
+            ret.append(" ");
         ret.append(std::to_string(_day));
         ret.append("-");
         ret.append(Month());
@@ -62,5 +64,10 @@ public:
         ret.append(" ");
         ret.append(std::to_string(_year));
         return ret;
+    }
+    inline bool equalsName(std::string key){
+        if(_name == key)
+            return true;
+        return false;
     }
 };

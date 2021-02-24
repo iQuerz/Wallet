@@ -20,6 +20,9 @@ void Manager::command(string command){
         cout << Manager::add() << endl << endl;
     else if(command == "list")
         Manager::list();
+    else if(command.substr(0,6) == "search"){
+        Manager::search(command.substr(7, command.size()-7));
+    }
     else
         cout << "   Unrecognized command." << endl << endl;
 }
@@ -72,14 +75,27 @@ void Manager::save(){
     fout << "*";
     fout.close();
 }
+void Manager::printList(vector<Bill> list){
+    cout << "   date        value        category" << endl;
+    cout << "---------------------------------------" << endl;
+    for(int i = list.size()-1; i>=0; i--){
+        cout << " " << list[i].date();
+        if(list[i].value()>0)
+            cout << " ";
+        printf("   %7.2f", list[i].value());
+        cout << "     " << list[i].name() << endl;
+    }
+    cout << endl;
+}
 
 void Manager::help(){
-    cout << "Available commands[ver1.0]:" << endl;
+    cout << "Available commands[ver1.1]:" << endl;
     cout << "  'balance'           - prints current balance of selected wallet." << endl;
     cout << "  'select <index>'    - selects a different wallet by its index." << endl;
     cout << "  'wallets'           - lists all available wallets and their respective indexes." << endl;
     cout << "  'add'               - opens a wizard for adding new bill to your selected wallet." << endl;
     cout << "  'list'              - lists all bills from the selected wallet." << endl;
+    cout << "  'search <key>'      - display all <key> bills from the selected wallet." << endl;
     cout << "  'exit'              - saves data and exits, closing the app using any other method won't save any data." << endl;
     cout << "Any suggestions are welcome, contact: nikola.rasic@elfak.rs" << endl << endl;
 }
@@ -149,4 +165,18 @@ void Manager::list(){
         cout << "       " << _wallets[_index][i].name() << endl;
     }
     cout << endl;
+}
+void Manager::search(string key){
+    vector<Bill> res; //search result
+    for(int i = 0;i<_wallets[_index].size();i++){
+        if(_wallets[_index][i].equalsName(key)){
+            res.push_back(_wallets[_index][i]);
+        }
+    }
+    if(res.size() > 0){
+        cout << "   Displaying all search results from '" << _wallets[_index].name() << "':" << endl << endl;
+        Manager::printList(res);
+        return;
+    }
+    cout << "    We searched far and wide, but to no avail." << endl << endl;
 }

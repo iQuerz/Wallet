@@ -11,6 +11,7 @@ public:
     void command(std::string command);
     bool load();
     void save();
+    void printList(std::vector<Bill> list);
 private:
     void help();
     void balance();
@@ -18,4 +19,5 @@ private:
     void wallets();
     std::string add();
     void list();
+    void search(std::string key);
 };
